@@ -1,0 +1,54 @@
+Begining error logging at 
+Sat Jan 13 13:49:34 2018
+error at /Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/LIBIGL/PyMesh/third_party/cork/src/mesh/mesh.isct.tpp, line #1063: Ran out of tries to perturb the mesh
+Ending error logging at 
+Sat Jan 13 13:49:34 2018
+
+Begining error logging at 
+Sat Jan 13 16:56:45 2018
+error at /Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/LIBIGL/PyMesh/third_party/cork/src/mesh/mesh.isct.tpp, line #1063: Ran out of tries to perturb the mesh
+Ending error logging at 
+Sat Jan 13 16:56:45 2018
+
+Begining error logging at 
+Sat Jan 13 16:59:16 2018
+error at /Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/LIBIGL/PyMesh/third_party/cork/src/mesh/mesh.isct.tpp, line #1063: Ran out of tries to perturb the mesh
+Ending error logging at 
+Sat Jan 13 16:59:16 2018
+
+Begining error logging at 
+Sat Jan 13 17:00:24 2018
+error at /Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/LIBIGL/PyMesh/third_party/cork/src/mesh/mesh.isct.tpp, line #1063: Ran out of tries to perturb the mesh
+Ending error logging at 
+Sat Jan 13 17:00:24 2018
+
+Begining error logging at 
+Sat Jan 13 18:10:19 2018
+error at /Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/LIBIGL/PyMesh/third_party/cork/src/mesh/mesh.isct.tpp, line #1063: Ran out of tries to perturb the mesh
+Ending error logging at 
+Sat Jan 13 18:10:19 2018
+
+Begining error logging at 
+Sat Jan 13 18:12:20 2018
+error at /Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/LIBIGL/PyMesh/third_party/cork/src/mesh/mesh.isct.tpp, line #1063: Ran out of tries to perturb the mesh
+Ending error logging at 
+Sat Jan 13 18:12:20 2018
+
+Begining error logging at 
+Sat Jan 13 18:14:29 2018
+error at /Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/LIBIGL/PyMesh/third_party/cork/src/mesh/mesh.isct.tpp, line #1063: Ran out of tries to perturb the mesh
+Ending error logging at 
+Sat Jan 13 18:14:29 2018
+
+Begining error logging at 
+Sat Jan 13 18:15:43 2018
+error at /Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/LIBIGL/PyMesh/third_party/cork/src/mesh/mesh.isct.tpp, line #1063: Ran out of tries to perturb the mesh
+Ending error logging at 
+Sat Jan 13 18:15:43 2018
+
+Begining error logging at 
+Sat Jan 13 18:22:05 2018
+error at /Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/LIBIGL/PyMesh/third_party/cork/src/mesh/mesh.isct.tpp, line #1063: Ran out of tries to perturb the mesh
+Ending error logging at 
+Sat Jan 13 18:22:05 2018
+
