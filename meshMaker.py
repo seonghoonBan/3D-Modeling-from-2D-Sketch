@@ -34,6 +34,7 @@ def topMesh(data,thickness):
 def sideMesh(data,thickness):
     vertices=[]
     faces=[]
+    print(len(data['vertices']))
     for i in range(len(data['vertices'])):
         vertices.append([data['vertices'][i][0],data['vertices'][i][1],-thickness/2])
     for i in range(len(data['vertices'])):
@@ -46,11 +47,11 @@ def sideMesh(data,thickness):
     
     for i in range(1500):
         if i !=1499:
-            faces.append([i,i+1,len(data['vertices'])+i])
-            faces.append([i+1,len(data['vertices'])+i+1,len(data['vertices'])+i])
+            faces.append([i,len(data['vertices'])+i,i+1])
+            faces.append([i+1,len(data['vertices'])+i,len(data['vertices'])+i+1])
         else:
-            faces.append([1499,0,len(data['vertices'])+1499])
-            faces.append([0,len(data['vertices']),len(data['vertices'])+1499])
+            faces.append([1499,len(data['vertices'])+1499,0])
+            faces.append([0,len(data['vertices'])+1499,len(data['vertices'])])
     faces=np.array(faces)
     return pymesh.form_mesh(vertices, faces)
 

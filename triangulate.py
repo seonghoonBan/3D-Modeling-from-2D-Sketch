@@ -14,13 +14,14 @@ def triangualtion(data):
             seg.append([i,i+1])
         else :
             seg.append([len(data)-1,0])
-    holes.append([0.0,120.0])
+    holes.append([0.0,200.0])
     inputMesh = {'vertices': None, 'holes': None, 'segments': None,}
     inputMesh['vertices']=data
     inputMesh['segments'] = np.array(seg)
     inputMesh['holes'] = np.array(holes,dtype='double')
     outputMesh = triangulate(inputMesh, 'pq20D')
     return outputMesh
+
 
 #plt.figure(figsize=(14,14))
 #ax = plt.subplot(111, aspect='equal')

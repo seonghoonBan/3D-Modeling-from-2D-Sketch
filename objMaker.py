@@ -4,7 +4,7 @@ import pymesh
 import IPython
 from viewPoint import *
 
-FastMode =False
+FastMode =True
 
 def bodyMaker(ratioF,frontD,frontC,frontH,ratioB,backD,backC,backH,ID,path):
     global body
@@ -62,10 +62,9 @@ def bodyMaker(ratioF,frontD,frontC,frontH,ratioB,backD,backC,backH,ID,path):
     if FastMode is True:
         sidetopfrontback=fixmesh.fix_mesh(sidetopfrontback,detail="low")
     else:
-        sidetopfrontback=fixmesh.fix_mesh(sidetopfrontback,detail="enormal")
+        sidetopfrontback=fixmesh.fix_mesh(sidetopfrontback,detail="normal")
     body=sidetopfrontback
     print("ALL DONE.. Saving as 'body.obj'")
-    pymesh.meshio.save_mesh("objs/body%s.obj"%ID, sidetopfrontback)
     pymesh.meshio.save_mesh("%sbody.obj"%path, sidetopfrontback)
 
 
@@ -74,7 +73,7 @@ def bodyMaker(ratioF,frontD,frontC,frontH,ratioB,backD,backC,backH,ID,path):
 
 def frontGlass(path):
     print("Making front glass part")
-    top = topMeshR(triangualtion(top2),100)
+    top = topMesh(triangualtion(top2),100)
     if FastMode is False:
         top=fixmesh.fix_mesh(top,detail="normal")
     frontGlass = pymesh.boolean(top, body,operation="intersection",engine="cork")
@@ -107,7 +106,7 @@ def sideGlass(path):
 
 def sideDoor(path):
     print("Making side door part")
-    side = sideMeshR(triangualtion(side8),200)
+    side = sideMesh(triangualtion(side8),200)
     if FastMode is False:
         side=fixmesh.fix_mesh(side,detail="normal")
     sideDoor = pymesh.boolean(side, body,operation="intersection",engine="cork")
@@ -115,13 +114,14 @@ def sideDoor(path):
         sideDoor=fixmesh.fix_mesh(sideDoor,detail="enormal")
     print("it's done.. Saving as 'sideDoor.obj'")
     pymesh.meshio.save_mesh("%ssideDoor.obj"%path, sideDoor)
+    pymesh.meshio.save_mesh("sideDoortest.obj", sideDoor)
 
 def backLight(ratioB,backD,backC,backH,path):
     print("Making back light part")
     back = backMeshH(triangualtion(back4),backD,backC,backH,ratioB)
     pymesh.meshio.save_mesh("%sbackLightTest.obj"%path, back)
-    #back=fixmesh.fix_mesh(back,detail="normal")
-    backLight = pymesh.boolean(back, body,operation="intersection",engine="igl")
+    back=fixmesh.fix_mesh(back,detail="normal")
+    backLight = pymesh.boolean(back, body,operation="intersection",engine="cork")
     if FastMode is False:
         backLight=fixmesh.fix_mesh(backLight,detail="enormal")
     print("it's done.. Saving as 'backLight.obj'")
@@ -130,7 +130,7 @@ def backLight(ratioB,backD,backC,backH,path):
 
 def backGlassTop(path):
     print("Making back glass part")
-    top = topMeshR(triangualtion(top0),100)
+    top = topMesh(triangualtion(top0),100)
     #pymesh.meshio.save_mesh("objs/backglassTest.obj", top)
     #top=fixmesh.fix_mesh(top,detail="normal")
     backGlass = pymesh.boolean(top, body,operation="intersection",engine="cork")
@@ -155,7 +155,8 @@ def trunk(ratioB,backD,backC,backH,path):
     print("Making trunk part")
     back = backMeshH(triangualtion(back3),backD,backC,backH,ratioB)
     if FastMode is False:
-        back=fixmesh.fix_mesh(back,detail="normal")
+        pass
+        #back=fixmesh.fix_mesh(back,detail="normal")
     trunk = pymesh.boolean(back, body,operation="intersection",engine="cork")
     if FastMode is False:
         trunk=fixmesh.fix_mesh(trunk,detail="enormal")
@@ -164,7 +165,7 @@ def trunk(ratioB,backD,backC,backH,path):
 
 def backBumper(ratioB,backD,backC,backH,path):
     print("Making back bumper part")
-    back = backMeshHR(triangualtion(back6),backD,backC,backH,ratioB)
+    back = backMeshH(triangualtion(back6),backD,backC,backH,ratioB)
     pymesh.meshio.save_mesh("%sbackBumperTest.obj"%path, back)
     #back=fixmesh.fix_mesh(back,detail="normal")
     backBumper = pymesh.boolean(back, body,operation="intersection",engine="cork")
@@ -176,8 +177,8 @@ def backBumper(ratioB,backD,backC,backH,path):
 def grill(ratioF,frontD,frontC,frontH,path):
     print("Making grill part")
     front = frontMeshH(triangualtion(front5),frontD,frontC,frontH,ratioF)
-    #front=fixmesh.fix_mesh(front,detail="normal")
-    Grill = pymesh.boolean(front, body,operation="intersection",engine="igl")
+    front=fixmesh.fix_mesh(front,detail="normal")
+    Grill = pymesh.boolean(front, body,operation="intersection",engine="cork")
     if FastMode is False:
         Grill=fixmesh.fix_mesh(Grill,detail="enormal")
     print("it's done.. Saving as 'grill.obj'")
@@ -185,10 +186,11 @@ def grill(ratioF,frontD,frontC,frontH,path):
 
 def frontBumper(ratioF,frontD,frontC,frontH,path):
     print("Making front bumper part")
-    front = frontMeshHR(triangualtion(front9),frontD,frontC,frontH,ratioF)
+    front = frontMeshH(triangualtion(front9),frontD,frontC,frontH,ratioF)
     if FastMode is False:
-        front=fixmesh.fix_mesh(front,detail="normal")
-    frontBumper = pymesh.boolean(front, body,operation="intersection",engine="igl")
+        pass
+        #front=fixmesh.fix_mesh(front,detail="normal")
+    frontBumper = pymesh.boolean(front, body,operation="intersection",engine="cork")
     if FastMode is False:
         frontBumper=fixmesh.fix_mesh(frontBumper,detail="enormal")
     print("it's done.. Saving as 'frontBumper.obj'")
@@ -199,9 +201,9 @@ def dataLoader(path):
     global body
     body=pymesh.load_mesh("%sbody.obj"%path)
 
-def partMaker(ratioF,frontD,frontC,frontH,ratioB,backD,backC,backH,ID,path):
-    #bodyMaker(ratioF,frontD,frontC,frontH,ratioB,backD,backC,backH,ID,path)
-    dataLoader(path)
+def partMakerAll(ratioF,frontD,frontC,frontH,ratioB,backD,backC,backH,ID,path):
+    bodyMaker(ratioF,frontD,frontC,frontH,ratioB,backD,backC,backH,ID,path)
+    
     frontGlass(path)
     headLight(ratioF,frontD,frontC,frontH,path)
     frontBumper(ratioF,frontD,frontC,frontH,path)
@@ -209,57 +211,65 @@ def partMaker(ratioF,frontD,frontC,frontH,ratioB,backD,backC,backH,ID,path):
     backGlassTop(path)
     trunk(ratioB,backD,backC,backH,path)
     sideGlass(path)
-    sideDoor(path)
+    #sideDoor(path)
     backBumper(ratioB,backD,backC,backH,path)
     grill(ratioF,frontD,frontC,frontH,path)
-    
-    
     #backGlass(ratioB,backD,backC,backH,path)
-    
-    
+    partMaker(frontD,backD,"sideDoor","/Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/Prgram/CarModelFromPython/Assets/",True)
 
-#partMaker(2.6,600,3.0,576,"700_900_2.4","/Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/Prgram/CarModelFromPython/Assets/") 
-#partMaker(3.0,600,2.98,576,"700_900_3.4","/Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/Prgram/CarModelFromPython/Assets/") 
-#partMaker(2.3828,600,frontC,2.7150,576,frontC,"ID","/Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/Prgram/CarModelFromPython/Assets/") 
-#bodyMaker(2.3828,800,0.99809257089501911959835729058562,25.78,2.7150,800,0.99689621914928869357692626128948,45.314,"800","/Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/Prgram/CarModelFromPython/Assets/") 
-frontD=-800
-backD=-1000
+
+def partMaker(frontD,backD,part,path,Mode):
+    global FastMode
+    FastMode=Mode
+
+    ratioF=getFrontPoint(-frontD)[2]
+    frontC=getFrontPoint(-frontD)[0]
+    frontH=getFrontPoint(-frontD)[1]
+    ratioB=getBackPoint(-backD)[2]
+    backC=getBackPoint(-backD)[0]
+    backH=getBackPoint(-backD)[1]
+
+    if part is "body":
+        bodyMaker(ratioF,frontD,frontC,frontH,ratioB,backD,backC,backH,"%d_%d"%(frontD,backD),path)
+    elif part is "frontGlass":
+        dataLoader(path)
+        rontGlass(path)
+    elif part is "headLight":
+        dataLoader(path)
+        headLight(ratioF,frontD,frontC,frontH,path)
+    elif part is "frontBumper":
+        dataLoader(path)
+        frontBumper(ratioF,frontD,frontC,frontH,path)
+    elif part is "backLight":
+        dataLoader(path)
+        backLight(ratioB,backD,backC,backH,path)
+    elif part is "backGlass":
+        dataLoader(path)
+        backGlassTop(path)
+    elif part is "trunk":
+        dataLoader(path)
+        trunk(ratioB,backD,backC,backH,path)
+    elif part is "sideGlass":
+        dataLoader(path)
+        sideGlass(path)
+    elif part is "sideDoor":
+        dataLoader(path)
+        sideDoor(path)
+    elif part is "backBumper":
+        dataLoader(path)
+        backBumper(ratioB,backD,backC,backH,path)
+    elif part is "grill":
+        dataLoader(path)
+        grill(ratioF,frontD,frontC,frontH,path)
+    elif part is "All":
+        partMakerAll(ratioF,frontD,frontC,frontH,ratioB,backD,backC,backH,"%d_%d"%(frontD,backD),path)
+
+frontD=800
+backD=1000
+
+partMaker(frontD,backD,"All","/Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/Prgram/CarModelFromPython/Assets/",True)
+
 #print(getBackPoint(backD))
-partMaker(getFrontPoint(frontD)[2],-frontD,getFrontPoint(frontD)[0],getFrontPoint(frontD)[1],getBackPoint(backD)[2],-backD,getBackPoint(backD)[0],getBackPoint(backD)[1],"%d_%d"%(-frontD,-backD),"/Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/Prgram/CarModelFromPython/Assets/") 
+#partMakerAll(getFrontPoint(frontD)[2],-frontD,getFrontPoint(frontD)[0],getFrontPoint(frontD)[1],getBackPoint(backD)[2],-backD,getBackPoint(backD)[0],getBackPoint(backD)[1],"%d_%d"%(-frontD,-backD),"/Users/seonghoonban/Dropbox/BS01-AutomatedCarDesign/Prgram/CarModelFromPython/Assets/") 
+#headLight2(getFrontPoint(frontD)[2],-frontD,getFrontPoint(frontD)[0],getFrontPoint(frontD)[1])
 
-
-
-
-#print(getFrontPoint(frontD))
-#print(getBackPoint(backD))
-#ratioF,frontD,ratioB,backD,ID)
-
-''' 700, 900, 2.4
-bodyMaker(2.8,500,700,"500_700_2.8")
-bodyMaker(2.6,500,700,"500_700_2.6")
-bodyMaker(2.4,500,700,"500_700_2.4")
-bodyMaker(2.2,500,700,"500_700_2.2")
-bodyMaker(2,500,700,"500_700_2")
-
-bodyMaker(2.8,600,800,"600_800_2.8")
-bodyMaker(2.6,600,800,"600_800_2.6")
-bodyMaker(2.4,600,800,"600_800_2.4")
-bodyMaker(2.2,600,800,"600_800_2.2")
-bodyMaker(2,600,800,"600_800_2")
-
-bodyMaker(2.8,700,900,"700_900_2.8")
-bodyMaker(2.6,700,900,"700_900_2.6")
-bodyMaker(2.4,700,900,"700_900_2.4")
-bodyMaker(2.2,700,900,"700_900_2.2")
-bodyMaker(2,700,900,"700_900_2")
-
-def frontGlassMaker(ratioF,frontD):
-    top = topMesh(triangualtion(top2),200)
-    top=fixmesh.fix_mesh(top,detail="normal")
-    front = frontMesh(triangualtion(front2),frontD,ratioF)
-    front=fixmesh.fix_mesh(front,detail="normal")
-    frontGlass = pymesh.boolean(front, top,operation="intersection",engine="cork")
-    frontGlass=fixmesh.fix_mesh(frontGlass,detail="normal")
-    print("front glass part is done.. Saving as 'frontGlass.obj'")
-    pymesh.meshio.save_mesh("objs/frontGlass.obj", frontGlass)
-'''

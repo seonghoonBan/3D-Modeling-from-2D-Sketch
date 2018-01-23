@@ -4,7 +4,9 @@ import IPython
 import numpy as np
 
 #path='bmw 5-series 2013/'
-path='acura2007/'
+#path='bmw 5-series 2007/'
+#path='acura_2007_bahn/'
+path='acura2007_2/'
 #path='acura2010/'
 #path='acura2012/'
 #path='bmw2010/'
@@ -14,6 +16,7 @@ with open('%s1_1.txt'%path,'r') as tsvin:
     global FboxRIGHT
     global FboxUP
     global FboxDOWN
+    FboxLEFT=0
     FboxRIGHT=0
     FboxUP=0
     FboxDOWN=0
@@ -23,10 +26,13 @@ with open('%s1_1.txt'%path,'r') as tsvin:
         front1temp.append([float(row[0]),float(row[1])])
         if float(row[0])>FboxRIGHT:
             FboxRIGHT=float(row[0])
+        if float(row[0])<FboxLEFT:
+            FboxLEFT=float(row[0])
         if float(row[1])>FboxUP:
             FboxUP=float(row[1])
         if float(row[1])<FboxDOWN:
             FboxDOWN=float(row[1])
+    FboxRIGHT=(abs(FboxRIGHT)+abs(FboxLEFT))*0.5
 front1=np.array(front1temp)
 
 with open('%s1_2.txt'%path,'r') as tsvin:
@@ -163,6 +169,7 @@ with open('%s3_1.txt'%path,'r') as tsvin:
     global BboxRIGHT
     global BboxUP
     global BboxDOWN
+    BboxLEFT=0
     BboxRIGHT =0
     BboxUP =0
     BboxDOWN =0
@@ -172,10 +179,13 @@ with open('%s3_1.txt'%path,'r') as tsvin:
         back1temp.append([float(row[0]),float(row[1])])
         if float(row[0])>BboxRIGHT:
             BboxRIGHT=float(row[0])
+        if float(row[0])<BboxLEFT:
+            BboxLEFT=float(row[0])
         if float(row[1])>BboxUP:
             BboxUP=float(row[1])
         if float(row[1])<BboxDOWN:
             BboxDOWN=float(row[1])
+    BboxRIGHT=(abs(BboxRIGHT)+abs(BboxLEFT))*0.5
 back1=np.array(back1temp)
 
 with open('%s3_2.txt'%path,'r') as tsvin:
